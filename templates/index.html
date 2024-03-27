@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Home - Tvflix{% endblock %}
+{% block content %}
+    <article class="container" page-content>
+        <!-- BANNER -->
+        <section class="banner" aria-label="popular movies">
+            <div class="banner-slider">
+                {% for movie in movies %}
+                <div class="slider-item">
+                    <img src="{{ movie.backdrop_path }}" alt="{{ movie.title }}" class="img-cover" loading="eager">
+                    <div class="banner-content">
+                        <h2 class="heading">{{ movie.title }}</h2>
+                        <div class="meta-list">
+                            <div class="meta-item">{{ movie.release_date }}</div>
+                            <div class="meta-item card-badge">{{ movie.vote_average }}</div>
+                        </div>
+                        <p class="banner-text">{{ movie.overview }}</p>
+                        <a href="/detail" class="btn">
+                            <img src="static/images/play_circle.png" width="24" height="24" aria-hidden="true" alt="play circle">
+                            <span class="span">Show Details</span>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Slider controls -->
+            <div class="slider-control">
+                <div class="control-inner">
+                    {% for movie in movies %}
+                    <button class="poster-box slider-control-button">
+                        <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" loading="lazy" draggable="false" class="img-cover">
+                </button>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </section>
+ 
+
+        <!-- MOVIE LIST -->
+        <section class="movie-list" aria-label="upcoming movie">
+            <div class="title-wrapper">
+                <h3 class="title-large">Popular Movies</h3>
+            </div>
+            <div class="slider-list">
+                <div class="slider-inner">
+                    {% for movie in popular %}
+                    <div class="movie-card">
+                        <figure class="poster-box card-banner">
+                            <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" class="img-cover">
+                        </figure>
+                        <h4 class="title">{{ movie.title }}</h4>
+                        <div class="meta-list">
+                            <div class="meta-item">
+                                <img src="static/images/star.png" width="20" height="20" loading="lazy" alt="rating">
+                                <span class="span">{{ movie.vote_average }}</span>
+                            </div>
+                            <div class="card-badge">{{ movie.release_date }}</div>
+                        </div>
+                        <a href="/detail" class="card-btn" title="{{ movie.title }}"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <section class="movie-list" aria-label="upcoming movie">
+            <div class="title-wrapper">
+                <h3 class="title-large">All Time Trending Movies</h3>
+            </div>
+            <div class="slider-list">
+                <div class="slider-inner">
+                    {% for movie in trending %}
+                    <div class="movie-card">
+                        <figure class="poster-box card-banner">
+                            <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" class="img-cover">
+                        </figure>
+                        <h4 class="title">{{ movie.title }}</h4>
+                        <div class="meta-list">
+                            <div class="meta-item">
+                                <img src="static/images/star.png" width="20" height="20" loading="lazy" alt="rating">
+                                <span class="span">{{ movie.vote_average }}</span>
+                            </div>
+                            <div class="card-badge">{{ movie.release_date }}</div>
+                        </div>
+                        <a href="/detail" class="card-btn" title="{{ movie.title }}"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        
+    </article>
+    
+{% endblock %}
