@@ -11,9 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/global.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/index.js') }}" type="module"></script>
-    <script src="{{ url_for('static', filename='js/sidebar.js') }}" type="module"></script>
-    <script src="{{ url_for('static', filename='js/detail.js') }}" type="module"></script>
+  
+    
+    
     <title>{% block title %}Tvflix{% endblock %}</title>
 </head>
 <body>
@@ -42,14 +42,15 @@
         <nav class="sidebar" sidebar >
             <div class="sidebar-inner">
                 <div class="sidebar-list">
-                    <p class="title">Genre</p>
-                    <a href="/movie-list" menu-close class="sidebar-link">Action</a>
-                    <a href="/movie-list" menu-close class="sidebar-link">Horror</a>
-                    <a href="/movie-list" menu-close class="sidebar-link">Comedy</a>
-                    <a href="/movie-list" menu-close class="sidebar-link">Adventure</a>
-                    <a href="/movie-list" menu-close class="sidebar-link">Drama</a>
-                    <a href="/movie-list" menu-close class="sidebar-link">Sci-Fi</a>
-                </div>
+                    
+                        <p class="title">Genre</p>
+                        <a href="/movie-list/Action" menu-close class="sidebar-link">Action</a>
+                        <a href="/movie-list/Horror" menu-close class="sidebar-link">Horror</a>
+                        <a href="/movie-list/Comedy" menu-close class="sidebar-link">Comedy</a>
+                        <a href="/movie-list/Adventure" menu-close class="sidebar-link">Adventure</a>
+                        <a href="/movie-list/Drama" menu-close class="sidebar-link">Drama</a>
+                        <a href="/movie-list/Sci-Fi" menu-close class="sidebar-link">Sci-Fi</a>
+                    </div>
     
                 <div class="sidebar-footer">
                     <p class="copyright">

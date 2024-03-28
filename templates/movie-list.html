@@ -5,7 +5,7 @@
     <!-- #MOVIE LIST -->
     <section class="movie-list genre-list">
         <div class="title-wrapper">
-            <h1 class="heading">All Fantasy Movies</h1>
+            <h1 class="heading">All {{ genre }} Movies</h1>
         </div>
 
         <div class="grid-list">
@@ -17,7 +17,7 @@
                 <h4 class="title">{{ movie.title }}</h4>
                 <div class="meta-list">
                     <div class="meta-item">
-                        <img src="..\static\images\star.png" width="20" height="20" loading="lazy" alt="rating">
+                        <img src="{{ url_for('static', filename='images/star.png') }}" width="20" height="20" loading="lazy" alt="rating">
                         <span class="span">{{ movie.vote_average }}</span>
                     </div>
                     <div class="card-badge">{{ movie.release_date }}</div>
@@ -26,11 +26,9 @@
             </div>
             {% endfor %}
         </div>
-        <button class="btn load-more">Load More</button>
     </section>
 
-
-<div class="search-modal active">
+<div class="search-modal ">
     <p class="label">Results for</p>
     <h1 class="heading">Puss in Boots</h1>
     <div class="movie-list">

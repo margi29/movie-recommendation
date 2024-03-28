@@ -85,12 +85,17 @@ def detail(movie_id):
             return "Movie details not found", 404
     else:
         return "Movie not found", 404
+    
+@app.route('/movie-list/<genre>')
+def movie_list(genre):
+    # Fetch all movies
+    all_movies, _, _, _ = fetch_top_movies()
+    
+    # Filter movies based on the genre
+    genre_movies = [movie for movie in all_movies if isinstance(movie, dict) and movie.get('genres') and genre.lower() in movie['genres'].lower()]
+    
+    return render_template('movie-list.html', movies=genre_movies)
 
-
-@app.route('/movie-list')
-def movie_list():
-    all_movies, _, _, _ = fetch_top_movies()  # Only fetching top movies for movie list page
-    return render_template('movie-list.html', movies=all_movies)
 
 if __name__ == '__main__':
     app.run(debug=True)
