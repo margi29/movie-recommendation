@@ -1,38 +1,38 @@
 {% extends "base.html" %}
-{% block title %}{{ movies[0].title }} - Tvflix{% endblock %}
+{% block title %}{{ movies.title }} - Tvflix{% endblock %}
 {% block content %}
-<article class="container" page-content>
+
     <!-- #MOVIE DETAIL -->
     <div class="movie-detail">
-        <div class="backdrop-image" style="background-image: url({{ movies[0].backdrop_path }});"></div>
+        <div class="backdrop-image" style="background-image: url({{ movies.backdrop_path }});"></div>
         <figure class="poster-box movie-poster">
-            <img src="{{ movies[0].poster_path }}" alt="{{ movies[0].title }}" class="img-cover">
+            <img src="{{ movies.poster_path }}" alt="{{ movies.title }}" class="img-cover">
         </figure>
 
         <div class="detail-box">
             <div class="detail-content">
-                <h1 class="heading">{{ movies[0].title }}</h1>
+                <h1 class="heading">{{ movies.title }}</h1>
                 <div class="meta-list">
                     <div class="meta-item">
-                        <img src="static/images/star.png" width="20" height="20" alt="rating">
-                        <span class="span">{{ movies[0].vote_average }}</span>
+                        <img src="../static/images/star.png" width="20" height="20" alt="rating">
+                        <span class="span">{{ movies.vote_average }}</span>
                     </div>
                     <div class="separator"></div>
-                    <div class="meta-item">{{ movies[0].runtime }}min</div>
+                    <div class="meta-item">{{ movies.runtime }}min</div>
                     <div class="separator"></div>
-                    <div class="meta-item">{{ movies[0].release_date }}</div>
-                    <div class="meta-item card-badge">{{ movies[0].certification }}</div>
+                    <div class="meta-item">{{ movies.release_date }}</div>
+                    <div class="meta-item card-badge">{{ movies.certification }}</div>
                 </div>
-                <p class="genre">{{ movies[0].genres }}</p>
-                <p class="overview">{{ movies[0].overview }}</p>
+                <p class="genre">{{ movies.genres }}</p>
+                <p class="overview">{{ movies.overview }}</p>
                 <ul class="detail-list">
                     <div class="list-item">
                         <p class="list-name">Starring</p>
-                        <p>{{ movies[0].casts }}</p>
+                        <p>{{ movies.casts }}</p>
                     </div>
                     <div class="list-item">
                         <p class="list-name">Directed By</p>
-                        <p>{{ movies[0].directors }}</p>
+                        <p>{{ movies.directors }}</p>
                     </div>
                 </ul>
             </div>
@@ -43,7 +43,7 @@
 
             <div class="slider-list">
                 <div class="slider-inner">
-                    {% for video_url in movies[0].videos %}
+                    {% for video_url in movies.videos %}
                     <iframe width="500" height="294" src="{{ video_url }}" frameborder="0" allowfullscreen="1" class="img-cover" loading="lazy"></iframe>
                 {% endfor %}
                 </div>
@@ -60,7 +60,7 @@
 
         <div class="slider-list">
             <div class="slider-inner">
-                {% for movie in movies[1:] %}
+                {% for movie in movies %}
                 <div class="movie-card">
                     <figure class="poster-box card-banner">
                         <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" class="img-cover">
@@ -68,7 +68,7 @@
                     <h4 class="title">{{ movie.title }}</h4>
                     <div class="meta-list">
                         <div class="meta-item">
-                            <img src="static/images/star.png" width="20" height="20" loading="lazy" alt="rating">
+                            <img src="../static/images/star.png" width="20" height="20" loading="lazy" alt="rating">
                             <span class="span">{{ movie.vote_average }}</span>
                         </div>
                         <div class="card-badge">{{ movie.release_date }}</div>
@@ -80,5 +80,4 @@
         </div>
     </section>
 
-</article>
 {% endblock %}

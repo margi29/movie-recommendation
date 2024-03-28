@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Home - Tvflix{% endblock %}
 {% block content %}
-    <article class="container" page-content>
+
         <!-- BANNER -->
         <section class="banner" aria-label="popular movies">
             <div class="banner-slider">
@@ -15,7 +15,7 @@
                             <div class="meta-item card-badge">{{ movie.vote_average }}</div>
                         </div>
                         <p class="banner-text">{{ movie.overview }}</p>
-                        <a href="/detail" class="btn">
+                        <a href="/detail/{{movie.id}}" class="btn">
                             <img src="static/images/play_circle.png" width="24" height="24" aria-hidden="true" alt="play circle">
                             <span class="span">Show Details</span>
                         </a>
@@ -58,7 +58,7 @@
                             </div>
                             <div class="card-badge">{{ movie.release_date }}</div>
                         </div>
-                        <a href="/detail" class="card-btn" title="{{ movie.title }}"></a>
+                        <a href="/detail/{{movie.id}}" class="card-btn" title="{{ movie.title }}"></a>
                     </div>
                     {% endfor %}
                 </div>
@@ -83,13 +83,13 @@
                             </div>
                             <div class="card-badge">{{ movie.release_date }}</div>
                         </div>
-                        <a href="/detail" class="card-btn" title="{{ movie.title }}"></a>
+                        <a href="/detail/{{movie.id}}" class="card-btn" title="{{ movie.title }}"></a>
                     </div>
                     {% endfor %}
                 </div>
             </div>
         </section>
         
-    </article>
+    
     
 {% endblock %}

@@ -3,8 +3,20 @@ import csv
 from datetime import datetime
 app = Flask(__name__)
 
+# Function to fetch movie IDs from the dataset
+def fetch_movie_ids():
+    movie_ids = []
+
+    with open('dataset/new_data.csv', 'r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            movie_ids.append(int(row['id']))
+
+    return movie_ids
+
 # Function to fetch details for 15 movies from the dataset
 def fetch_top_movies():
+    all_movies = []
     top_movies = []
     trending_movies = []
     popular_movies = []
@@ -13,6 +25,7 @@ def fetch_top_movies():
         reader = csv.DictReader(file)
         for row in reader:
             movie_detail = {
+                'id': int(row['id']),
                 'backdrop_path': "https://image.tmdb.org/t/p/w1280/" + row['backdrop_path'],
                 'poster_path': "https://image.tmdb.org/t/p/w1280/" + row['poster_path'],
                 'title': row['title'],
@@ -27,7 +40,7 @@ def fetch_top_movies():
                 'keywords': row['keywords']
             }
             add_videos(movie_detail, row['videos'])
-            top_movies.append(movie_detail)
+            all_movies.append(movie_detail)
 
             # Check if the movie is trending
             if float(row['vote_average']) > 7.5:
@@ -38,10 +51,13 @@ def fetch_top_movies():
                 popular_movies.append(movie_detail)
 
             # Break the loop if 15 eligible movies are found
-            if len(top_movies) == 50 and len(trending_movies) >= 5 and len(popular_movies) >= 5:
+            if len(top_movies) == 50 and len(trending_movies) >= 5:
                 break
 
-    return top_movies[:15], trending_movies[:15], popular_movies[:15]  # Return only the top 5 trending and popular movies
+    top_movies = all_movies[:15]
+    popular_movies = popular_movies[:15]
+
+    return all_movies, top_movies, trending_movies, popular_movies  
 
 # Function to add videos to the movie details dictionary
 def add_videos(movie_detail, videos):
@@ -51,18 +67,30 @@ def add_videos(movie_detail, videos):
 # Route for rendering the index page with top 15 movies
 @app.route('/')
 def index():
-    top_movies, trending_movies, popular_movies = fetch_top_movies()
+    all_movies, top_movies, trending_movies, popular_movies = fetch_top_movies()
     return render_template('index.html', movies=top_movies, trending=trending_movies, popular=popular_movies)
 
-@app.route('/detail')
-def detail():
-    top_movies, _, _ = fetch_top_movies()  # Only fetching top movies for detail page
-    return render_template('detail.html', movies=top_movies)
+
+@app.route('/detail/<int:movie_id>')
+def detail(movie_id):
+    movie_ids = fetch_movie_ids()
+    if movie_id in movie_ids:
+        # Fetch details for all movies
+        all_movies, _, _, _ = fetch_top_movies()
+        # Find the movie with the specified ID
+        movie_details = next((movies for movies in all_movies if movies['id'] == movie_id), None)
+        if movie_details:
+            return render_template('detail.html', movies=movie_details)
+        else:
+            return "Movie details not found", 404
+    else:
+        return "Movie not found", 404
+
 
 @app.route('/movie-list')
 def movie_list():
-    top_movies, _, _ = fetch_top_movies()  # Only fetching top movies for movie list page
-    return render_template('movie-list.html', movies=top_movies)
+    all_movies, _, _, _ = fetch_top_movies()  # Only fetching top movies for movie list page
+    return render_template('movie-list.html', movies=all_movies)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Movie List - Tvflix{% endblock %}
 {% block content %}
-<article class="container" page-content>
+
     <!-- #MOVIE LIST -->
     <section class="movie-list genre-list">
         <div class="title-wrapper">
@@ -17,7 +17,7 @@
                 <h4 class="title">{{ movie.title }}</h4>
                 <div class="meta-list">
                     <div class="meta-item">
-                        <img src="static\images\star.png" width="20" height="20" loading="lazy" alt="rating">
+                        <img src="..\static\images\star.png" width="20" height="20" loading="lazy" alt="rating">
                         <span class="span">{{ movie.vote_average }}</span>
                     </div>
                     <div class="card-badge">{{ movie.release_date }}</div>
@@ -28,7 +28,7 @@
         </div>
         <button class="btn load-more">Load More</button>
     </section>
-</article>
+
 
 <div class="search-modal active">
     <p class="label">Results for</p>
