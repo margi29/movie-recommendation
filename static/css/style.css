@@ -187,12 +187,6 @@ body {
   object-fit: cover;
 }
 
-.fix-iframe {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-}
-
 .meta-list {
   display: flex;
   flex-wrap: wrap;

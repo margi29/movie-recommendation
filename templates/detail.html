@@ -2,81 +2,81 @@
 {% block title %}{{ movies.title }} - Tvflix{% endblock %}
 {% block content %}
 
-    <!-- #MOVIE DETAIL -->
-    <div class="movie-detail">
-        <div class="backdrop-image" style="background-image: url('{{ movies.backdrop_path }}')"></div>
-        <figure class="poster-box movie-poster">
-            <img src="{{ movies.poster_path }}" alt="{{ movies.title }}" class="img-cover">
-        </figure>
+<!-- #MOVIE DETAIL -->
+<div class="movie-detail">
+    <div class="backdrop-image" style="background-image: url('{{ movies.backdrop_path }}')"></div>
+    <figure class="poster-box movie-poster">
+        <img src="{{ movies.poster_path }}" alt="{{ movies.title }}" class="img-cover">
+    </figure>
 
-        <div class="detail-box">
-            <div class="detail-content">
-                <h1 class="heading">{{ movies.title }}</h1>
-                <div class="meta-list">
-                    <div class="meta-item">
-                        <img src="../static/images/star.png" width="20" height="20" alt="rating">
-                        <span class="span">{{ movies.vote_average }}</span>
-                    </div>
-                    <div class="separator"></div>
-                    <div class="meta-item">{{ movies.runtime }}min</div>
-                    <div class="separator"></div>
-                    <div class="meta-item">{{ movies.release_date }}</div>
-                    <div class="meta-item card-badge">{{ movies.certification }}</div>
+    <div class="detail-box">
+        <div class="detail-content">
+            <h1 class="heading">{{ movies.title }}</h1>
+            <div class="meta-list">
+                <div class="meta-item">
+                    <img src="../static/images/star.png" width="20" height="20" alt="rating">
+                    <span class="span">{{ movies.vote_average }}</span>
                 </div>
-                <p class="genre">{{ movies.genres }}</p>
-                <p class="overview">{{ movies.overview }}</p>
-                <ul class="detail-list">
-                    <div class="list-item">
-                        <p class="list-name">Starring</p>
-                        <p>{{ movies.casts }}</p>
-                    </div>
-                    <div class="list-item">
-                        <p class="list-name">Directed By</p>
-                        <p>{{ movies.directors }}</p>
-                    </div>
-                </ul>
+                <div class="separator"></div>
+                <div class="meta-item">{{ movies.runtime }}min</div>
+                <div class="separator"></div>
+                <div class="meta-item">{{ movies.release_date }}</div>
+                <div class="meta-item card-badge">{{ movies.certification }}</div>
             </div>
-
-            <div class="title-wrapper">
-                <h3 class="title-large">Trailers and Clips</h3>
-            </div>
-
-            <div class="slider-list">
-                <div class="slider-inner">
-                    {% for video_url in movies.videos %}
-                    <iframe class="fix-iframe" src="{{ video_url }}" frameborder="0" allowfullscreen="1"  loading="lazy"></iframe>
-                {% endfor %}
+            <p class="genre">{{ movies.genres }}</p>
+            <p class="overview">{{ movies.overview }}</p>
+            <ul class="detail-list">
+                <div class="list-item">
+                    <p class="list-name">Starring</p>
+                    <p>{{ movies.casts }}</p>
                 </div>
-            </div>
+                <div class="list-item">
+                    <p class="list-name">Directed By</p>
+                    <p>{{ movies.directors }}</p>
+                </div>
+            </ul>
         </div>
-    </div>
 
-    <!-- #MOVIE LIST -->
-    <section class="movie-list" aria-label="upcoming movie">
         <div class="title-wrapper">
-            <h3 class="title-large">You May Also Like</h3>
+            <h3 class="title-large">Trailers and Clips</h3>
         </div>
 
         <div class="slider-list">
             <div class="slider-inner">
-                {% for movie in movies %}
-                <div class="movie-card">
-                    <figure class="poster-box card-banner">
-                        <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" class="img-cover">
-                    </figure>
-                    <h4 class="title">{{ movie.title }}</h4>
-                    <div class="meta-list">
-                        <div class="meta-item">
-                            <img src="../static/images/star.png" width="20" height="20" loading="lazy" alt="rating">
-                            <span class="span">{{ movie.vote_average }}</span>
-                        </div>
-                        <div class="card-badge">{{ movie.release_date }}</div>
-                    </div>
-                    <a href="/detail" class="card-btn" title="{{ movie.title }}"></a>
-                </div>
+                {% for video_url in movies.videos %}
+                <iframe src="{{ video_url }}" frameborder="0" allowfullscreen="1" loading="lazy"></iframe>
                 {% endfor %}
             </div>
         </div>
-    </section>
+    </div>
+</div>
+
+<!-- #MOVIE LIST -->
+<section class="movie-list" aria-label="upcoming movie">
+    <div class="title-wrapper">
+        <h3 class="title-large">You May Also Like</h3>
+    </div>
+
+    <div class="slider-list">
+        <div class="slider-inner">
+            {% for movie in movies %}
+            <div class="movie-card">
+                <figure class="poster-box card-banner">
+                    <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" class="img-cover">
+                </figure>
+                <h4 class="title">{{ movie.title }}</h4>
+                <div class="meta-list">
+                    <div class="meta-item">
+                        <img src="../static/images/star.png" width="20" height="20" loading="lazy" alt="rating">
+                        <span class="span">{{ movie.vote_average }}</span>
+                    </div>
+                    <div class="card-badge">{{ movie.release_date }}</div>
+                </div>
+                <a href="/detail" class="card-btn" title="{{ movie.title }}"></a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
 {% endblock %}
