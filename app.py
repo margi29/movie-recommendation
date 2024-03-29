@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import csv
 from datetime import datetime
 app = Flask(__name__)
@@ -93,8 +93,15 @@ def movie_list(genre):
     
     # Filter movies based on the genre
     genre_movies = [movie for movie in all_movies if isinstance(movie, dict) and movie.get('genres') and genre.lower() in movie['genres'].lower()]
-    
+
+    # Handle search query
+    search_query = request.args.get('q', '')
+    if search_query:
+        # Filter genre_movies further based on search query
+        genre_movies = [movie for movie in all_movies if search_query.lower() in movie['title'].lower()]
+
     return render_template('movie-list.html', movies=genre_movies)
+
 
 
 if __name__ == '__main__':
