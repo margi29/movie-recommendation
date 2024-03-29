@@ -28,29 +28,33 @@
         </div>
     </section>
 
-<div class="search-modal ">
-    <p class="label">Results for</p>
-    <h1 class="heading">Puss in Boots</h1>
-    <div class="movie-list">
-        <div class="grid-list">
-            <!-- Loop through search results and display -->
-            {% for result in search_results %}
-            <div class="movie-card">
-                <figure class="poster-box card-banner">
-                    <img src="{{ result.poster_path }}" alt="{{ result.title }}" class="img-cover">
-                </figure>
-                <h4 class="title">{{ result.title }}</h4>
-                <div class="meta-list">
-                    <div class="meta-item">
-                        <img src="static\images\star.png" width="20" height="20" loading="lazy" alt="rating">
-                        <span class="span">{{ result.vote_average }}</span>
+    <!-- Search Results Section -->
+    {% if search_results %}
+    <div class="search-modal ">
+        <p class="label">Results for</p>
+        <h1 class="heading">Puss in Boots</h1>
+        <div class="movie-list">
+            <div class="grid-list">
+                <!-- Loop through search results and display -->
+                {% for result in search_results %}
+                <div class="movie-card">
+                    <figure class="poster-box card-banner">
+                        <img src="{{ result.poster_path }}" alt="{{ result.title }}" class="img-cover">
+                    </figure>
+                    <h4 class="title">{{ result.title }}</h4>
+                    <div class="meta-list">
+                        <div class="meta-item">
+                            <img src="static\images\star.png" width="20" height="20" loading="lazy" alt="rating">
+                            <span class="span">{{ result.vote_average }}</span>
+                        </div>
+                        <div class="card-badge">{{ result.release_date }}</div>
                     </div>
-                    <div class="card-badge">{{ result.release_date }}</div>
+                    <a href="/detail/{{ result.id }}" class="card-btn" title="{{ result.title }}"></a>
                 </div>
-                <a href="/detail/{{ result.id }}" class="card-btn" title="{{ result.title }}"></a>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </div>
-</div>
+    {% endif %}
+
 {% endblock %}
