@@ -4,7 +4,7 @@
 
     <!-- #MOVIE DETAIL -->
     <div class="movie-detail">
-        <div class="backdrop-image" style="background-image: url({{ movies.backdrop_path }});"></div>
+        <div class="backdrop-image" style="background-image: url('{{ movies.backdrop_path }}')"></div>
         <figure class="poster-box movie-poster">
             <img src="{{ movies.poster_path }}" alt="{{ movies.title }}" class="img-cover">
         </figure>
@@ -44,11 +44,10 @@
             <div class="slider-list">
                 <div class="slider-inner">
                     {% for video_url in movies.videos %}
-                    <iframe width="500" height="294" src="{{ video_url }}" frameborder="0" allowfullscreen="1" class="img-cover" loading="lazy"></iframe>
+                    <iframe class="fix-iframe" src="{{ video_url }}" frameborder="0" allowfullscreen="1"  loading="lazy"></iframe>
                 {% endfor %}
                 </div>
             </div>
-
         </div>
     </div>
 

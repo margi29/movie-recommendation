@@ -187,6 +187,12 @@ body {
   object-fit: cover;
 }
 
+.fix-iframe {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
 .meta-list {
   display: flex;
   flex-wrap: wrap;
@@ -244,7 +250,7 @@ body {
 }
 
 .slider-list {
-  margin-inline: -20px;
+  margin-inline: 20px;
   overflow-x: overlay;
   padding-block-end: 16px;
   margin-block-end: -16px;
@@ -262,11 +268,19 @@ body {
   width: 20px;
 }
 
+
+
 .slider-list .slider-inner {
   position: relative;
   display: flex;
   gap: 16px;
 }
+
+.slider-inner iframe {
+  width: 30%;
+  border-radius: 15px;
+}
+
 
 .slider-list .slider-inner::before,
 .slider-list .slider-inner::after {
