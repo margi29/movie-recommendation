@@ -18,7 +18,7 @@
                     <span class="span">{{ movies.vote_average }}</span>
                 </div>
                 <div class="separator"></div>
-                <div class="meta-item">{{ movies.runtime }}min</div>
+                <div class="meta-item">{{ movies.runtime }}</div>
                 <div class="separator"></div>
                 <div class="meta-item">{{ movies.release_date }}</div>
                 <div class="meta-item card-badge">{{ movies.certification }}</div>
@@ -33,6 +33,10 @@
                 <div class="list-item">
                     <p class="list-name">Directed By</p>
                     <p>{{ movies.directors }}</p>
+                </div>
+                <div class="list-item">
+                    <p class="list-name">Language</p>
+                    <p>{{ movies.language }}</p>
                 </div>
             </ul>
         </div>

@@ -38,13 +38,14 @@ def fetch_top_movies():
                 'casts': row['casts'],
                 'directors': row['directors'],
                 'keywords': row['keywords'],
-                'popularity':row['popularity']
+                'popularity':row['popularity'],
+                'language':row['original_language']
             }
             add_videos(movie_detail, row['videos'])
             all_movies.append(movie_detail)
 
             # Check if the movie is trending
-            if float(row['vote_average']) > 8.5:
+            if float(row['vote_average']) > 8:
                 trending_movies.append(movie_detail)
 
             # Check if the movie is popular (released in the current year with rating above 8.0)
@@ -89,7 +90,7 @@ def detail(movie_id):
         return "Movie not found", 404
     
 @app.route('/movie-list/<genre>')
-def movie_list(genre):
+def genre_movie_list(genre):
     # Fetch all movies
     all_movies, _, _, _ = fetch_top_movies()
     
@@ -110,6 +111,9 @@ def movie_list(genre):
         genre_movies = search_results
 
     return render_template('movie-list.html', movies=genre_movies)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
