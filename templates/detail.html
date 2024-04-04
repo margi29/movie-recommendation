@@ -56,27 +56,27 @@
 </div>
 
 <!-- #MOVIE LIST -->
-<section class="movie-list" aria-label="upcoming movie">
+<section class="recommended-movies">
     <div class="title-wrapper">
-        <h3 class="title-large">Recommended For You</h3>
+        <h3 class="title-large">Recommended Movies</h3>
     </div>
 
     <div class="slider-list">
         <div class="slider-inner">
-            {% for movie in movies %}
+            {% for movies in recommended %}
             <div class="movie-card">
                 <figure class="poster-box card-banner">
-                    <img src="{{ movie.poster_path }}" alt="{{ movie.title }}" class="img-cover">
+                    <img src="https://image.tmdb.org/t/p/w1280/{{ movies.poster_path }}" alt="{{ movies.title }}" class="img-cover">
                 </figure>
-                <h4 class="title">{{ movie.title }}</h4>
+                <h4 class="title">{{ movies.title }}</h4>
                 <div class="meta-list">
                     <div class="meta-item">
                         <img src="../static/images/star.png" width="20" height="20" loading="lazy" alt="rating">
-                        <span class="span">{{ movie.vote_average }}</span>
+                        <span class="span">{{ movies.vote_average }}</span>
                     </div>
-                    <div class="card-badge">{{ movie.release_date }}</div>
+                    <div class="card-badge">{{ movies.release_date }}</div>
                 </div>
-                <a href="/detail/{{movie.id}}" class="card-btn" title="{{ movie.title }}"></a>
+                <a href="/detail/{{ movies.id }}" class="card-btn" title="{{ movies.title }}"></a>
             </div>
             {% endfor %}
         </div>
