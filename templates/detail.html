@@ -54,7 +54,7 @@
 <!-- #MOVIE LIST -->
 <section class="movie-list" aria-label="upcoming movie">
     <div class="title-wrapper">
-        <h3 class="title-large">You May Also Like</h3>
+        <h3 class="title-large">Recommended For You</h3>
     </div>
 
     <div class="slider-list">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="card-badge">{{ movie.release_date }}</div>
                 </div>
-                <a href="/detail" class="card-btn" title="{{ movie.title }}"></a>
+                <a href="/detail/{{movie.id}}" class="card-btn" title="{{ movie.title }}"></a>
             </div>
             {% endfor %}
         </div>

@@ -7,7 +7,7 @@ app = Flask(__name__)
 def fetch_movie_ids():
     movie_ids = []
 
-    with open('dataset/new_data.csv', 'r', encoding='utf-8') as file:
+    with open('dataset/preprocessed_movies.csv', 'r', encoding='utf-8') as file:
         reader = csv.DictReader(file)
         for row in reader:
             movie_ids.append(int(row['id']))
@@ -21,7 +21,7 @@ def fetch_top_movies():
     trending_movies = []
     popular_movies = []
 
-    with open('dataset/new_data.csv', 'r', encoding='utf-8') as file:
+    with open('dataset/preprocessed_movies.csv', 'r', encoding='utf-8') as file:
         reader = csv.DictReader(file)
         for row in reader:
             movie_detail = {
@@ -37,17 +37,18 @@ def fetch_top_movies():
                 'overview': row['overview'],
                 'casts': row['casts'],
                 'directors': row['directors'],
-                'keywords': row['keywords']
+                'keywords': row['keywords'],
+                'popularity':row['popularity']
             }
             add_videos(movie_detail, row['videos'])
             all_movies.append(movie_detail)
 
             # Check if the movie is trending
-            if float(row['vote_average']) > 7.5:
+            if float(row['vote_average']) > 8.5:
                 trending_movies.append(movie_detail)
 
             # Check if the movie is popular (released in the current year with rating above 8.0)
-            if float(row['vote_average']) > 8.5:
+            if float(row['popularity']) > 100:
                 popular_movies.append(movie_detail)
 
             # Break the loop if 15 eligible movies are found
@@ -79,8 +80,9 @@ def detail(movie_id):
         all_movies, _, _, _ = fetch_top_movies()
         # Find the movie with the specified ID
         movie_details = next((movies for movies in all_movies if movies['id'] == movie_id), None)
+        recommended_movies=next((movies for movies in all_movies if movies['id'] == movie_id), None)
         if movie_details:
-            return render_template('detail.html', movies=movie_details)
+            return render_template('detail.html', movies=movie_details,recommended=recommended_movies)
         else:
             return "Movie details not found", 404
     else:
@@ -97,12 +99,17 @@ def movie_list(genre):
     # Handle search query
     search_query = request.args.get('q', '')
     if search_query:
-        # Filter genre_movies further based on search query
-        genre_movies = [movie for movie in all_movies if search_query.lower() in movie['title'].lower()]
+        # First, filter genre_movies based on title matches
+        title_matches = [movie for movie in all_movies if search_query.lower() in movie['title'].lower()]
+
+        # Then, filter remaining genre_movies based on keyword matches
+        keyword_matches = [movie for movie in all_movies if movie not in title_matches and movie.get('keywords') and any(search_query.lower() in movie['keywords'].lower() for keyword in movie['keywords'].split(', '))]
+
+        # Concatenate the lists to get the final search results
+        search_results = title_matches + keyword_matches
+        genre_movies = search_results
 
     return render_template('movie-list.html', movies=genre_movies)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
